@@ -3,11 +3,13 @@ import ToggleOn from "../../../assets/img/toggle-on.png";
 import ToggleOff from "../../../assets/img/toggle-off.png";
 import commodityPic from "../../../assets/img/commodity.png";
 import "./Home.css";
+import { Button } from "react-bootstrap";
 
 const Home = () => {
   const [showAvailableCommodities, setShowAvailableCommodities] =
     useState(false);
   const [sortBy, setSortBy] = useState("");
+  const [quantities, setQuantities] = useState({});
 
   const sortByName = () => {
     setSortBy("name");
@@ -19,18 +21,21 @@ const Home = () => {
 
   const commodities = [
     {
+      id: 1,
       name: "Huawei nova 9",
       stock: "1 left in stock",
       image: commodityPic,
       price: 300,
     },
     {
+      id: 2,
       name: "Samsung Galaxy S21",
       stock: "0 left in stock",
       image: commodityPic,
       price: 400,
     },
     {
+      id: 3,
       name: "iPhone 13 Pro",
       stock: "3 left in stock",
       image: commodityPic,
@@ -48,6 +53,20 @@ const Home = () => {
     return showAvailableCommodities
       ? sorted.filter((c) => c.stock !== "0 left in stock")
       : sorted;
+  };
+
+  const handleIncrement = (id) => {
+    setQuantities({ ...quantities, [id]: (quantities[id] || 0) + 1 });
+  };
+
+  const handleDecrement = (id) => {
+    if (quantities[id] > 0) {
+      setQuantities({ ...quantities, [id]: quantities[id] - 1 });
+    }
+  };
+
+  const getQuantity = (id) => {
+    return quantities[id] || 0;
   };
 
   return (
@@ -93,7 +112,30 @@ const Home = () => {
                 <p>{commodity.stock}</p>
                 <img src={commodity.image} alt={`Commodity ${index}`} />
                 <p className="price">{`$${commodity.price}`}</p>
-                <button className="btn">Add to Cart</button>
+                {getQuantity(commodity.id) === 0 ? (
+                  <button
+                    className="btn"
+                    onClick={() => handleIncrement(commodity.id)}
+                  >
+                    Add to Cart
+                  </button>
+                ) : (
+                  <td>
+                    <div className="d-flex align-items-center justify-content-center">
+                      <div className="in-card">
+                        <span>
+                          <Button onClick={() => handleDecrement(commodity.id)}>
+                            -
+                          </Button>
+                          {getQuantity(commodity.id)}
+                          <Button onClick={() => handleIncrement(commodity.id)}>
+                            +
+                          </Button>
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                )}{" "}
               </div>
             ))}
           </div>

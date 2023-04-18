@@ -138,4 +138,30 @@
    border-radius: 15px;
    margin-left: 40%;
  }
- 
+ .in-card span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80px; /* adjust the width based on your preference */
+}
+
+.in-card span button {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #eee;
+  border: none;
+  cursor: pointer;
+}
+
+.in-card span button:hover {
+  background-color: #ccc;
+}
+
+.in-card span button:active {
+  transform: translateY(2px);
+}
+
+.in-card span button:first-child {
+  margin-right: 5px;
+}
