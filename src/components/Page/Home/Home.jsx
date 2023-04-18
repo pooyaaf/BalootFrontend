@@ -3,7 +3,53 @@ import ToggleOn from "../../../assets/img/toggle-on.png";
 import ToggleOff from "../../../assets/img/toggle-off.png";
 import commodityPic from "../../../assets/img/commodity.png";
 import "./Home.css";
+
 const Home = () => {
+  const [showAvailableCommodities, setShowAvailableCommodities] =
+    useState(false);
+  const [sortBy, setSortBy] = useState("");
+
+  const sortByName = () => {
+    setSortBy("name");
+  };
+
+  const sortByPrice = () => {
+    setSortBy("price");
+  };
+
+  const commodities = [
+    {
+      name: "Huawei nova 9",
+      stock: "1 left in stock",
+      image: commodityPic,
+      price: 300,
+    },
+    {
+      name: "Samsung Galaxy S21",
+      stock: "0 left in stock",
+      image: commodityPic,
+      price: 400,
+    },
+    {
+      name: "iPhone 13 Pro",
+      stock: "3 left in stock",
+      image: commodityPic,
+      price: 1200,
+    },
+  ];
+
+  const sortedCommodities = () => {
+    let sorted = commodities;
+    if (sortBy === "name") {
+      sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === "price") {
+      sorted = sorted.sort((a, b) => b.price - a.price);
+    }
+    return showAvailableCommodities
+      ? sorted.filter((c) => c.stock !== "0 left in stock")
+      : sorted;
+  };
+
   return (
     <div>
       <main>
@@ -12,8 +58,16 @@ const Home = () => {
             <div className="commodities-toggle d-flex align-items-center justify-content-between">
               <h2>Available Commodities</h2>
               <div className="available-commodities-toggle form-check form-switch">
-                <a href="#">
-                  <img src={ToggleOff} className="toggle-off" />
+                <a
+                  href="#"
+                  onClick={() =>
+                    setShowAvailableCommodities(!showAvailableCommodities)
+                  }
+                >
+                  <img
+                    src={showAvailableCommodities ? ToggleOn : ToggleOff}
+                    className="toggle-off"
+                  />
                   <div className="overlay">
                     <img src={ToggleOn} className="toggle-on" />
                   </div>
@@ -22,124 +76,26 @@ const Home = () => {
             </div>
             <div className="sort-options">
               <label>Sort by:</label>
-              <button className="sort-button" data-sort="name">
+              <button className="sort-button" onClick={sortByName}>
                 Name
               </button>
-              <button className="sort-button" data-sort="price">
+              <button className="sort-button" onClick={sortByPrice}>
                 Price
               </button>
             </div>
           </div>
-
           <div className="commodities-list">
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
-            <div className="commodity">
-              <a href="./product.html">
-                <h2>Huawei nova 9</h2>
-              </a>
-              <p>1 left in stock</p>
-              <img src={commodityPic} alt="Commodity 1" />
-              <p className="price">300$</p>
-              <button className="btn">Add to Cart</button>
-            </div>
+            {sortedCommodities().map((commodity, index) => (
+              <div className="commodity" key={index}>
+                <a href="./product.html">
+                  <h2>{commodity.name}</h2>
+                </a>
+                <p>{commodity.stock}</p>
+                <img src={commodity.image} alt={`Commodity ${index}`} />
+                <p className="price">{`$${commodity.price}`}</p>
+                <button className="btn">Add to Cart</button>
+              </div>
+            ))}
           </div>
         </section>
       </main>
