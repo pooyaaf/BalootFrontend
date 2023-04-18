@@ -4,6 +4,7 @@ import ToggleOff from "../../../assets/img/toggle-off.png";
 import commodityPic from "../../../assets/img/commodity.png";
 import "./Home.css";
 import { Button } from "react-bootstrap";
+import CommodityCard from "../../Common/CommodityCard";
 
 const Home = () => {
   const [showAvailableCommodities, setShowAvailableCommodities] =
@@ -105,38 +106,12 @@ const Home = () => {
           </div>
           <div className="commodities-list">
             {sortedCommodities().map((commodity, index) => (
-              <div className="commodity" key={index}>
-                <a href="./product.html">
-                  <h2>{commodity.name}</h2>
-                </a>
-                <p>{commodity.stock}</p>
-                <img src={commodity.image} alt={`Commodity ${index}`} />
-                <p className="price">{`$${commodity.price}`}</p>
-                {getQuantity(commodity.id) === 0 ? (
-                  <button
-                    className="btn"
-                    onClick={() => handleIncrement(commodity.id)}
-                  >
-                    Add to Cart
-                  </button>
-                ) : (
-                  <td>
-                    <div className="d-flex align-items-center justify-content-center">
-                      <div className="in-card">
-                        <span>
-                          <Button onClick={() => handleDecrement(commodity.id)}>
-                            -
-                          </Button>
-                          {getQuantity(commodity.id)}
-                          <Button onClick={() => handleIncrement(commodity.id)}>
-                            +
-                          </Button>
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                )}{" "}
-              </div>
+              <CommodityCard
+                commodity={commodity}
+                handleIncrement={handleIncrement}
+                handleDecrement={handleDecrement}
+                getQuantity={getQuantity}
+              />
             ))}
           </div>
         </section>
