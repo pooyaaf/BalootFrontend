@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import ToggleOn from "../../../assets/img/toggle-on.png";
 import ToggleOff from "../../../assets/img/toggle-off.png";
-import commodityPic from "../../../assets/img/commodity.png";
 import "./Home.css";
-import { Button } from "react-bootstrap";
 import CommodityCard from "../../Common/CommodityCard";
+import { Pagination } from "react-bootstrap";
+import DummyCommodity from "./DummyCommodity";
 
 const Home = () => {
   const [showAvailableCommodities, setShowAvailableCommodities] =
     useState(false);
   const [sortBy, setSortBy] = useState("");
   const [quantities, setQuantities] = useState({});
+  const [currentPage, setcurrentPage] = useState(1);
+  const [postPerPage, setpostPerPage] = useState(12);
 
   const sortByName = () => {
     setSortBy("name");
@@ -20,29 +22,7 @@ const Home = () => {
     setSortBy("price");
   };
 
-  const commodities = [
-    {
-      id: 1,
-      name: "Huawei nova 9",
-      stock: "1 left in stock",
-      image: commodityPic,
-      price: 300,
-    },
-    {
-      id: 2,
-      name: "Samsung Galaxy S21",
-      stock: "0 left in stock",
-      image: commodityPic,
-      price: 400,
-    },
-    {
-      id: 3,
-      name: "iPhone 13 Pro",
-      stock: "3 left in stock",
-      image: commodityPic,
-      price: 1200,
-    },
-  ];
+  const commodities = DummyCommodity();
 
   const sortedCommodities = () => {
     let sorted = commodities;
@@ -70,6 +50,14 @@ const Home = () => {
     return quantities[id] || 0;
   };
 
+  const totalPages = Math.ceil(sortedCommodities().length / postPerPage);
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPosts = sortedCommodities().slice(firstPostIndex, lastPostIndex);
+
+  const handlePageChange = (pageNumber) => {
+    setcurrentPage(pageNumber);
+  };
   return (
     <div>
       <main>
@@ -105,7 +93,7 @@ const Home = () => {
             </div>
           </div>
           <div className="commodities-list">
-            {sortedCommodities().map((commodity, index) => (
+            {currentPosts.map((commodity, index) => (
               <CommodityCard
                 commodity={commodity}
                 handleIncrement={handleIncrement}
@@ -113,6 +101,24 @@ const Home = () => {
                 getQuantity={getQuantity}
               />
             ))}
+          </div>
+          <div>
+            <Pagination>
+              {[...Array(totalPages)].map((_, index) => (
+                <Pagination.Item
+                  key={index}
+                  className={
+                    index + 1 === currentPage
+                      ? "activeBtn pagination-item"
+                      : "normalBtn pagination-item"
+                  }
+                  active={index + 1 === currentPage}
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+            </Pagination>
           </div>
         </section>
       </main>
