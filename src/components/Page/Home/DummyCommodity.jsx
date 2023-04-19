@@ -111,7 +111,7 @@ const DummyCommodity = () => {
     {
       id: 16,
       name: "Cheese",
-      stock: "4 left in stock",
+      stock: "0 left in stock",
       image: commodityPic,
       price: 5.0,
     },
