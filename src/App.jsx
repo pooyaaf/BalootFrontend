@@ -7,6 +7,7 @@ import Login from "./components/Page/Auth/Login";
 import { Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import "./App.css";
+import Register from "./components/Page/Auth/Register";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           }
         ></Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Container>
   );
