@@ -8,6 +8,8 @@ import { Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import "./App.css";
 import Register from "./components/Page/Auth/Register";
+import Commodity from "./components/Page/Commodity/Commodity";
+import HeaderLoggedIn from "./components/Layout/header/LoggedOnHeader/HeaderLoggedIn";
 
 function App() {
   return (
@@ -26,6 +28,17 @@ function App() {
         ></Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/product"
+          element={
+            <>
+              {" "}
+              <HeaderLoggedIn />
+              <Commodity />
+              <Footer />
+            </>
+          }
+        ></Route>
       </Routes>
     </Container>
   );
