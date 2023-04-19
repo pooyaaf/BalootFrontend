@@ -8,12 +8,12 @@ function Header() {
   return (
     <header className="header">
       <div className="header__logo">
-        <a href="./home.html">
+        <Link to="/">
           <img className="header__logo__image" src={logo} alt="Baloot" />
-        </a>
-        <a href="./home.html">
+        </Link>
+        <Link to="/">
           <div className="header__logo__text text text--xlarge">Baloot</div>
-        </a>
+        </Link>
       </div>
 
       <div className="header__search">
@@ -32,16 +32,17 @@ function Header() {
       </div>
 
       <div className="d-flex align-items-center">
-        <a href="./login.html">
+        <Link to="/login">
           <button type="button" className="btn  login-section btn-primary mr-3">
             Login
           </button>
-        </a>
-        <a href="./signup.html">
+        </Link>
+
+        <Link to="/register">
           <button type="button" className="btn  login-section btn-primary">
             Register
           </button>
-        </a>
+        </Link>
       </div>
     </header>
   );

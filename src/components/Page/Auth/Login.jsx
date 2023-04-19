@@ -3,6 +3,7 @@ import logo from "../../../assets/img/logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -11,10 +12,9 @@ const Login = () => {
         <div className="col-sm-6 col-md-4">
           <div className="card">
             <div className="card-header text-white text-center">
-              <a href="home.html">
-                {" "}
+              <Link to="/">
                 <img className="logo-sign" src={logo} alt="Baloot" />
-              </a>
+              </Link>
               <h4>Login</h4>
             </div>
             <div className="card-body">
