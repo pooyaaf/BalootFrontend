@@ -161,7 +161,7 @@ body {
   margin-right:20px;
 }
 .cart img{
-    
+
 }
 .cart button {
   flex-direction: row;
@@ -487,4 +487,8 @@ table tr:hover {
   padding: 20px;
   width: 90%;
   margin: auto;
+  }
+
+  .modalclose {
+    color: #c82525;
   }
