@@ -63,7 +63,7 @@ const User = () => {
         </div>
       </div>
       <div>
-        <div className="cart text-center">
+        <div className="cart">
           <p className="text-left section-title">
             <img src={shopcardicon} alt="Cart" className="Cart" />
             Cart
