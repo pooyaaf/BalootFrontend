@@ -6,6 +6,7 @@ import like from "../../../assets/img/like.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./Commodity.css";
+import { Link } from "react-router-dom";
 
 const Commodity = () => {
   return (
@@ -28,7 +29,7 @@ const Commodity = () => {
             <p>5 left in stock</p>
             <p>
               {" "}
-              by <a href="#"> Huawei </a>{" "}
+              by <Link to="/provider"> Huawei </Link>{" "}
             </p>
             <p>
               Category(s): <span>Category 1, Category 2, Category 3</span>

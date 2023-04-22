@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import commodityPic from "../../assets/img/commodity.png";
 import CommodityQuantity from "../Page/Home/CommodityQuantity/CommodityQuantity";
+import { Link } from "react-router-dom";
 
 const CommodityCard = ({
   commodity,
@@ -10,9 +11,9 @@ const CommodityCard = ({
 }) => {
   return (
     <div className="commodity">
-      <a href="./product.html">
+      <Link to="/product">
         <h2>{commodity.name}</h2>
-      </a>
+      </Link>
       <p>{commodity.stock}</p>
       <img
         src={commodity.image || commodityPic}

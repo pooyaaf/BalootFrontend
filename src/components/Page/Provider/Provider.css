@@ -1,0 +1,34 @@
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .provider-logo{
+    
+    margin-bottom: 10px;
+    border-radius: 15px;
+    width: 678.3px;
+    height: 500px;
+  }
+.date-provider{
+    color: #593C1C;
+    margin-left: 22em;
+    font-size: 24px;
+    line-height: 29px;
+}  
+.provider-title{
+    font-size: 58px;
+    margin-right: 29rem;
+    line-height: 70px;
+    color: #593C1C;
+}
+.all-provided-commodities{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 39px;    
+    color: #593C1C;
+}

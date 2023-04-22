@@ -11,7 +11,7 @@ import Register from "./components/Page/Auth/Register";
 import Commodity from "./components/Page/Commodity/Commodity";
 import HeaderLoggedIn from "./components/Layout/header/LoggedOnHeader/HeaderLoggedIn";
 import User from "./components/Page/User/User";
-
+import Provider from "./components/Page/Provider/Provider";
 function App() {
   return (
     <Container>
@@ -47,6 +47,17 @@ function App() {
               {" "}
               <HeaderLoggedIn />
               <User />
+              <Footer />
+            </>
+          }
+        ></Route>
+        <Route
+          path="/provider"
+          element={
+            <>
+              {" "}
+              <HeaderLoggedIn />
+              <Provider />
               <Footer />
             </>
           }
