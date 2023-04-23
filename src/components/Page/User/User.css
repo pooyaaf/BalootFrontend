@@ -153,6 +153,13 @@ body {
   width: 10%;
 }
 
+.emptyCart{
+ 
+  text-align: center ;
+  color: #A97B47;
+
+}
+
 .in-card {
   border-radius: 10px;
   border-color: rgb(141, 129, 129);
@@ -161,7 +168,7 @@ body {
   width: 100%;
   height: auto;
   display: flex;
- 
+  justify-content: center;  
   align-items: center;
 
 }
@@ -171,11 +178,15 @@ body {
   color: black;
   width: 30%;
   font-size: 16px;
+
+  
 }
 
 .in-card span {
   width: 40%;
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: bold;
+margin-left: 20px;
   text-align: center;
 }
 

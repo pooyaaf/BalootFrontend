@@ -12,11 +12,13 @@ import historyicon from "../../../assets/img/History.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./User.css";
+import CartModal from "./CardModal/CartModal";
 
 const User = () => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const [quantity, setQuantity] = useState(1);
 
   return (
     <main>
@@ -87,31 +89,52 @@ const User = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <img
-                      src={product}
-                      alt="Product Image"
-                      className="table-image"
-                    />
-                  </td>
-                  <td className="table-td-gray-color">Galaxy S21</td>
-                  <td className="table-td-gray-color">Technology, Phone</td>
-                  <td className="table-td-gray-color">$21000000</td>
-                  <td className="table-td-gray-color">1234</td>
-                  <td className="table-td-gold-color">8.3</td>
-                  <td className="table-td-red-color">17</td>
-                  <td>
-                    <div className="in-card">
-                      <button className="btn minus">−</button>
-                      <span> 1 </span>
-                      <button className="btn plus">+</button>
-                    </div>
-                  </td>
-                </tr>
+                {quantity > 0 ? (
+                  <tr>
+                    <td>
+                      <img
+                        src={product}
+                        alt="Product Image"
+                        className="table-image"
+                      />
+                    </td>
+                    <td className="table-td-gray-color">Galaxy S21</td>
+                    <td className="table-td-gray-color">Technology, Phone</td>
+                    <td className="table-td-gray-color">$21000000</td>
+                    <td className="table-td-gray-color">1234</td>
+                    <td className="table-td-gold-color">8.3</td>
+                    <td className="table-td-red-color">17</td>
+                    <td>
+                      <div className="in-card">
+                        <button
+                          className="btn minus"
+                          onClick={() => setQuantity(quantity - 1)}
+                        >
+                          −
+                        </button>
+
+                        <span>{quantity}</span>
+
+                        <button
+                          className="btn plus"
+                          onClick={() => setQuantity(quantity + 1)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  <tr>
+                    <td colSpan="8" className="emptyCart">
+                      your cart is empty
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
+
           <button
             type="button"
             className="pay-now-button btn"
@@ -121,64 +144,7 @@ const User = () => {
           </button>
         </div>
 
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Your Cart</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {
-              /* Items List */
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <img
-                        src={product}
-                        alt="Product Image"
-                        className="table-image"
-                      />
-                    </td>
-                    <td>Galaxy S21</td>
-                    <td>$21000000</td>
-                  </tr>
-                </tbody>
-              </table>
-            }
-            {
-              /* Discount Code Input */
-              <div className="form-group">
-                <label htmlFor="discountCode">Discount Code:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="discountCode"
-                  placeholder="Enter discount code"
-                />
-              </div>
-            }
-            {
-              /* Total Price */
-              <div className="total-price">
-                <h5>Total Price: $21000000</h5>
-              </div>
-            }
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="btn-link  modalclose" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary " onClick={handleClose}>
-              Buy
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <CartModal show={show} handleClose={handleClose} />
 
         <div className="history">
           <p className="section-title">
