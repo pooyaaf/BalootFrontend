@@ -130,6 +130,9 @@ body {
 line-height: 34px;
 height: 34px;
 }
+.pay-now-button{
+  margin-left: 30%;
+}
 .cart button {
   flex-direction: row;
   align-items: flex-end;
