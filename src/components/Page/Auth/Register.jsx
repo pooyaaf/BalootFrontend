@@ -72,7 +72,7 @@ const Register = () => {
             <div className="card-footer">
               <div className="text-center">
                 <span>Already have an account? </span>
-                <a href="./login.html">Log In</a>
+                <Link to="/login">Log In</Link>
               </div>
             </div>
           </div>

@@ -44,7 +44,7 @@ const Login = () => {
                     Login
                   </button>
                   <p className="mt-3 mb-0">
-                    Don't have an account? <a href="./signup.html">Sign Up</a>
+                    Don't have an account? <Link to="/register">Sign Up</Link>
                   </p>
                 </div>
               </form>
