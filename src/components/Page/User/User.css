@@ -125,9 +125,6 @@ body {
   margin-left: 50px;
   margin-right:20px;
 }
-.cart img{
-
-}
 .cart button {
   flex-direction: row;
   align-items: flex-end;

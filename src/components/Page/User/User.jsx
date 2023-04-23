@@ -47,6 +47,9 @@ const User = () => {
                 20785 Schultes Avenue, Warren, MI 48091
               </span>
             </p>
+            <p>
+              <Button variant="primary ">logout</Button>
+            </p>
           </div>
         </div>
         <div className="credit">
