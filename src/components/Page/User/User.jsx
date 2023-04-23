@@ -13,12 +13,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./User.css";
 import CartModal from "./CardModal/CartModal";
+import AmountModal from "./CardModal/AmountModal";
 
 const User = () => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [quantity, setQuantity] = useState(1);
+  //amount
+  const [currentAmount, setCurrentAmount] = useState(10000000);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const handleConfirmationShow = () => setShowConfirmationModal(true);
+  const handleConfirmationClose = () => {
+    const newAmount = parseFloat(enteredAmount);
+    setCurrentAmount(currentAmount + newAmount);
+    setShowConfirmationModal(false);
+  };
+  const handleNotConfirmationClose = () => {
+    setShowConfirmationModal(false);
+  };
 
   return (
     <main>
@@ -55,7 +69,7 @@ const User = () => {
         <div className="credit">
           <form action="" method="post">
             <div className="form-group">
-              <label for="currentAmount">$10000000</label>
+              <label for="currentAmount">${currentAmount}</label>
             </div>
             <div className="form-group">
               <input
@@ -63,9 +77,15 @@ const User = () => {
                 className="form-control"
                 id="amountInput"
                 placeholder="$Amount"
+                value={enteredAmount}
+                onChange={(e) => setEnteredAmount(e.target.value)}
               />
             </div>
-            <button type="submit" className="btn btn-primary btn-block">
+            <button
+              type="button"
+              className="btn btn-primary btn-block"
+              onClick={handleConfirmationShow}
+            >
               Add More Credit
             </button>
           </form>
@@ -206,6 +226,15 @@ const User = () => {
             </table>
           </div>
         </div>
+      </div>
+      <div>
+        <AmountModal
+          show={showConfirmationModal}
+          handleClose={handleClose}
+          handleNotConfirmationClose={handleNotConfirmationClose}
+          handleConfirmationClose={handleConfirmationClose}
+          enteredAmount={enteredAmount}
+        />
       </div>
     </main>
   );
