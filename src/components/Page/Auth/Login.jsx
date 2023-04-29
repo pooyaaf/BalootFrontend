@@ -1,11 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../../assets/img/logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./Login.css";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+
+  function handleUsernameChange(event) {
+    setUsername(event.target.value);
+  }
+
+  function handlePasswordChange(event) {
+    setPassword(event.target.value);
+  }
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const response = await fetch(
+      `http://127.0.0.1:8080/login?username=${username}&password=${password}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        method: "POST",
+        mode: "cors",
+        redirect: "follow",
+      }
+    ).then((response) => {
+      if (response.ok) {
+        alert("Login Successful!");
+        localStorage.setItem("username", username);
+        // localstorage.getItem(username) // to get username login or not
+        navigate("/");
+      } else {
+        alert("Wrong username or password!");
+        navigate("/login");
+      }
+      return response.json();
+    });
+    console.log("A name was submitted: " + response.body);
+  }
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
@@ -18,13 +57,15 @@ const Login = () => {
               <h4>Login</h4>
             </div>
             <div className="card-body">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label for="username">Username:</label>
                   <input
                     type="text"
                     className="form-control"
                     id="username"
+                    value={username}
+                    onChange={handleUsernameChange}
                     placeholder="Enter username"
                     required
                   />
@@ -35,6 +76,8 @@ const Login = () => {
                     type="password"
                     className="form-control"
                     id="password"
+                    value={password}
+                    onChange={handlePasswordChange}
                     placeholder="Enter password"
                     required
                   />
