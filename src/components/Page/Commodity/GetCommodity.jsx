@@ -19,7 +19,7 @@ async function GetCommodity(id) {
     }
     return response.json();
   });
-  return response
+  return response;
 }
 
 export default GetCommodity;

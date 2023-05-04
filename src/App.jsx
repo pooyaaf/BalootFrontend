@@ -52,7 +52,7 @@ function App() {
           }
         ></Route>
         <Route
-          path="/provider"
+          path="/provider/:id"
           element={
             <>
               {" "}
