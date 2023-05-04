@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, setState } from "react";
 import ToggleOn from "../../../assets/img/toggle-on.png";
 import ToggleOff from "../../../assets/img/toggle-off.png";
 import "./Home.css";
 import CommodityCard from "../../Common/CommodityCard";
 import { Pagination } from "react-bootstrap";
-import DummyCommodity from "./DummyCommodity";
+import AllCommodities from "./AllCommodities";
 
 const Home = () => {
   const [showAvailableCommodities, setShowAvailableCommodities] =
@@ -13,6 +13,7 @@ const Home = () => {
   const [quantities, setQuantities] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
   const [postPerPage, setpostPerPage] = useState(12);
+  const [commodities, setCommodities] = useState([]);
 
   const sortByName = () => {
     setSortBy("name");
@@ -22,7 +23,12 @@ const Home = () => {
     setSortBy("price");
   };
 
-  const commodities = DummyCommodity();
+  const updateCommodities = (allCommodity) => {
+    setCommodities(allCommodity);
+  };
+
+  const allCommodity = AllCommodities().then((allCommodity) => {updateCommodities(allCommodity)});
+
 
   const sortedCommodities = () => {
     let sorted = commodities;
@@ -32,7 +38,7 @@ const Home = () => {
       sorted = sorted.sort((a, b) => b.price - a.price);
     }
     return showAvailableCommodities
-      ? sorted.filter((c) => c.stock !== "0 left in stock")
+      ? sorted.filter((c) => c.inStock !== "0 left in stock")
       : sorted;
   };
 

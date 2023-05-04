@@ -14,7 +14,7 @@ const CommodityCard = ({
       <Link to="/product">
         <h2>{commodity.name}</h2>
       </Link>
-      <p>{commodity.stock}</p>
+      <p>{commodity.inStock} left in stock</p>
       <img
         src={commodity.image || commodityPic}
         alt={`Commodity ${commodity.id}`}
