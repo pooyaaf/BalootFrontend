@@ -14,6 +14,7 @@ const Home = () => {
   const [currentPage, setcurrentPage] = useState(1);
   const [postPerPage, setpostPerPage] = useState(12);
   const [commodities, setCommodities] = useState([]);
+  const [activeFetch, setActiveFetch] = useState(true);
 
   const sortByName = () => {
     setSortBy("name");
@@ -25,9 +26,11 @@ const Home = () => {
 
   const updateCommodities = (allCommodity) => {
     setCommodities(allCommodity);
+    setActiveFetch(false);
   };
 
-  const allCommodity = AllCommodities().then((allCommodity) => {updateCommodities(allCommodity)});
+  if (activeFetch === true)
+    AllCommodities().then((allCommodity) => {updateCommodities(allCommodity)});
 
 
   const sortedCommodities = () => {

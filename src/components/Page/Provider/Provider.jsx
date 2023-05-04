@@ -3,13 +3,12 @@ import providerpic from "../../../assets/img/provider.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./Provider.css";
-import DummyCommodity from "../Home/DummyCommodity";
 import CommodityCard from "../../Common/CommodityCard";
 
 const Provider = () => {
   const [commodities, setCommodities] = useState([]);
   useEffect(() => {
-    const allCommodities = DummyCommodity();
+    const allCommodities = [];
     const filteredCommodities = allCommodities.filter(
       (commodity) => commodity.provider === "Huawei"
     );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, setState } from "react";
 import star from "../../../assets/img/star.svg";
 import product from "../../../assets/img/commodity.png";
 import dislike from "../../../assets/img/dislike.png";
@@ -6,9 +6,23 @@ import like from "../../../assets/img/like.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./Commodity.css";
-import { Link } from "react-router-dom";
+import GetCommodity from "./GetCommodity";
+import { Link, useParams } from "react-router-dom";
+
 
 const Commodity = () => {
+  const { id } = useParams();
+  const [commodityInfo, setCommodity] = useState({});
+  const [activeFetch, setActiveFetch] = useState(true);
+  const updateCommodity = (getCommodityInfo) => {
+    setCommodity(getCommodityInfo);
+    setActiveFetch(false);
+  };
+  if (activeFetch === true)
+    GetCommodity(id).then((getCommodityInfo) => {updateCommodity(getCommodityInfo)});
+  if (commodityInfo.commodityShortModel === undefined)
+    return(<></>);
+
   return (
     <>
       <div className="product-box">
@@ -17,7 +31,7 @@ const Commodity = () => {
         </div>
         <div className="product-details">
           <div className="product-title">
-            <h2> Huawei nova 9 </h2>
+            <h2> {commodityInfo.commodityShortModel.commodityModel.name} </h2>
             <div className="rating-number">
               <img src={star} />
               <span>
@@ -26,17 +40,17 @@ const Commodity = () => {
             </div>
           </div>
           <div className="product-meta">
-            <p>5 left in stock</p>
+            <p>{commodityInfo.commodityShortModel.commodityModel.inStock} left in stock</p>
             <p>
               {" "}
-              by <Link to="/provider"> Huawei </Link>{" "}
+              by <Link to="/provider"> {commodityInfo.commodityShortModel.commodityModel.providerId} </Link>{" "}
             </p>
             <p>
-              Category(s): <span>Category 1, Category 2, Category 3</span>
+              Category(s): <span>{commodityInfo.commodityShortModel.commodityModel.categories.toString()}</span>
             </p>
             <p>
               <strong>
-                <span>300$</span>
+                <span>{commodityInfo.commodityShortModel.commodityModel.price}$</span>
               </strong>{" "}
               <button className="add-to-cart">Add to Cart</button>
             </p>

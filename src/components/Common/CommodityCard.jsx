@@ -11,7 +11,7 @@ const CommodityCard = ({
 }) => {
   return (
     <div className="commodity">
-      <Link to="/product">
+      <Link to={`/product/${commodity.id}`}>
         <h2>{commodity.name}</h2>
       </Link>
       <p>{commodity.inStock} left in stock</p>
