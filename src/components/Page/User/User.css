@@ -191,7 +191,7 @@ height: 34px;
   width: 40%;
   font-size: 16px;
   font-weight: bold;
-margin-left: 20px;
+  margin-left: 20px;
   text-align: center;
 }
 
@@ -212,6 +212,7 @@ margin-left: 20px;
 .in-card button {
   background-color: #FFFFFF;
   color: black;
+  border-style: none !important;
 }
 
 .in-card button:hover {

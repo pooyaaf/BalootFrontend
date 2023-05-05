@@ -1,6 +1,9 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
+import { Button } from "react-bootstrap";
+// import "../Home.css";
+import "../../User/User.css";
 const CommodityQuantity = ({
   commodity,
   handleIncrement,
@@ -55,14 +58,16 @@ const CommodityQuantity = ({
   }
   return (
     <td>
-      <div className="d-flex align-items-center justify-content-center">
-        <div className="in-card">
-          <span>
-            <Button onClick={handleRemoveFromBuyListSubmit}>-</Button>
-            {getQuantity(commodity.id)}
-            <Button onClick={handleAddToBuyListSubmit}>+</Button>
-          </span>
-        </div>
+      <div className="in-card">
+        <button className="btn minus" onClick={handleRemoveFromBuyListSubmit}>
+          −
+        </button>
+
+        <span>{getQuantity(commodity.id)}</span>
+
+        <button className="btn plus" onClick={handleAddToBuyListSubmit}>
+          +
+        </button>
       </div>
     </td>
   );
