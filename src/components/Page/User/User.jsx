@@ -14,6 +14,7 @@ import "../../Common/style.css";
 import "./User.css";
 import CartModal from "./CardModal/CartModal";
 import CartCommodity from "./CartCommodity";
+import HistoryCommodity from "./HistoryCommodity";
 import AmountModal from "./CardModal/AmountModal";
 import { useNavigate } from "react-router-dom";
 
@@ -188,48 +189,6 @@ const User = () => {
                 </tr>
               </thead>
               <tbody>
-                {quantity > 0 ? (
-                  <tr>
-                    <td>
-                      <img
-                        src={product}
-                        alt="Product Image"
-                        className="table-image"
-                      />
-                    </td>
-                    <td className="table-td-gray-color">Galaxy S21</td>
-                    <td className="table-td-gray-color">Technology, Phone</td>
-                    <td className="table-td-gray-color">$21000000</td>
-                    <td className="table-td-gray-color">1234</td>
-                    <td className="table-td-gold-color">8.3</td>
-                    <td className="table-td-red-color">17</td>
-                    <td>
-                      <div className="in-card">
-                        <button
-                          className="btn minus"
-                          onClick={() => setQuantity(quantity - 1)}
-                        >
-                          −
-                        </button>
-
-                        <span>{quantity}</span>
-
-                        <button
-                          className="btn plus"
-                          onClick={() => setQuantity(quantity + 1)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ) : (
-                  <tr>
-                    <td colSpan="8" className="emptyCart">
-                      your cart is empty
-                    </td>
-                  </tr>
-                )}
                 {buyList.buyList.map((commodity) => (
                   <CartCommodity
                     commodity={commodity}
@@ -273,39 +232,11 @@ const User = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <img
-                      src={productmamaspagetti}
-                      alt="Product Image"
-                      className="table-image"
-                    />
-                  </td>
-                  <td className="table-td-gray-color">Mom's Spaghetti</td>
-                  <td className="table-td-gray-color">Food</td>
-                  <td className="table-td-gray-color">$6000</td>
-                  <td className="table-td-gray-color">313</td>
-                  <td className="table-td-gold-color">10</td>
-                  <td className="table-td-red-color">0</td>
-                  <td className="table-td-gray-color">3</td>
-                </tr>
-                <tr>
-                  <td>
-                    {" "}
-                    <img
-                      src={productmic}
-                      alt="Product Image"
-                      className="table-image"
-                    />
-                  </td>
-                  <td className="table-td-gray-color">Dre's Microphone</td>
-                  <td className="table-td-gray-color">Technology</td>
-                  <td className="table-td-gray-color">$42000000</td>
-                  <td className="table-td-gray-color">4321</td>
-                  <td className="table-td-gold-color">8.5</td>
-                  <td className="table-td-red-color">22</td>
-                  <td className="table-td-gray-color">1</td>
-                </tr>
+                {buyList.purchasedList.map((commodity) => (
+                  <HistoryCommodity
+                    commodity={commodity}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
