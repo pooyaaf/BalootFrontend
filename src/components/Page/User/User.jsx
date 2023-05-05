@@ -26,11 +26,33 @@ const User = () => {
   const [buyList, setBuyList] = useState({});
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [enteredAmount, setEnteredAmount] = useState("");
-  const handleConfirmationShow = () => setShowConfirmationModal(true);
+  async function updateUserAmount() {
+    const response = await fetch(
+      `http://localhost:8080/credit?credit=${parseFloat(enteredAmount)}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        method: "POST",
+        mode: "cors",
+      }
+    );
+    if (response.ok) {
+      console.log("Add credit succussfuly");
+    } else {
+      console.log("Add credit unsuccussfuly!");
+    }
+  }
+  const handleConfirmationShow = (event) => {
+    event.preventDefault();
+    setShowConfirmationModal(true);
+  }
   const handleConfirmationClose = () => {
     const newAmount = parseFloat(enteredAmount);
     setCurrentAmount(currentAmount + newAmount);
     setShowConfirmationModal(false);
+    updateUserAmount();
   };
   const handleNotConfirmationClose = () => {
     setShowConfirmationModal(false);
