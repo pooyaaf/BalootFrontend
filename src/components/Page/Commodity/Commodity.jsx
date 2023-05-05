@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./Commodity.css";
 import GetCommodity from "./GetCommodity";
+import Comment from "./Comment";
 import CommodityCard from "../../Common/CommodityCard";
 import { Link, useParams } from "react-router-dom";
 
@@ -39,7 +40,7 @@ const Commodity = () => {
 
   if (activeFetch === true)
     GetCommodity(id).then((getCommodityInfo) => {updateCommodity(getCommodityInfo)});
-  if (commodityInfo.commodityShortModel === undefined)
+  if (commodityInfo.commodityShortModel === undefined || commodityInfo.commodityShortModel.commentsList == undefined)
     return(<></>);
 
   return (
@@ -129,47 +130,13 @@ const Commodity = () => {
       <div>
         <section class="comments">
           <h2>
-            Comments <p> (2) </p>
+            Comments <p> ({commodityInfo.commodityShortModel.commentsList.length}) </p>
           </h2>
-          <div class="comment">
-            <div class="comment-header">
-              <p class="message"> This was awsome!!!!</p>
-              <span class="date">2023-03-20</span>
-              <span class="username">#username</span>
-              <div class="helpful">
-                <span class="helpful-label">Is this comment helpful?</span>
-                <span>1</span>
-                <button class="like">
-                  <img src={like} alt="Like" />
-                </button>
-                <span>1</span>
-                <button class="dislike">
-                  <img src={dislike} alt="Dislike" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="comment">
-            <div class="comment-header">
-              <p class="message"> This was awfulllllllllllllllllll!!!!</p>
-              <span class="date"> 2023-03-20</span>
-              <span class="username">#username</span>
-              <div class="helpful">
-                <span class="helpful-label">Is this comment helpful?</span>
-                <span>1</span>{" "}
-                <button class="like">
-                  {" "}
-                  <img src={like} alt="Like" />
-                </button>
-                <span>1</span>
-                <button class="dislike">
-                  <img src={dislike} alt="Dislike" />
-                </button>
-              </div>
-            </div>
-          </div>
-
+          {commodityInfo.commodityShortModel.commentsList.map((comment) => (
+              <Comment
+                commentInfo={comment}
+              />
+            ))}
           <form class="submit-opinion">
             <h3>Submit your opinion</h3>
             <input type="text" id="message" name="message" />
