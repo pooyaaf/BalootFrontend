@@ -12,10 +12,15 @@ import { Link, useParams } from "react-router-dom";
 
 const Commodity = () => {
   const { id } = useParams();
+  const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  const [ratingNumber, setRatingNumber] = useState(0);
   const [commodityInfo, setCommodity] = useState({});
   const [activeFetch, setActiveFetch] = useState(true);
   const [quantities, setQuantities] = useState({});
 
+  const increamentRatingNumber = () => {
+    setRatingNumber(ratingNumber + 1);
+  }
   const updateCommodity = (getCommodityInfo) => {
     setCommodity(getCommodityInfo);
     setActiveFetch(false);
@@ -49,7 +54,7 @@ const Commodity = () => {
             <div className="rating-number">
               <img src={star} />
               <span>
-                4.1<span>(12)</span>
+              {commodityInfo.commodityShortModel.commodityModel.rating}<span>({ratingNumber})</span>
               </span>
             </div>
           </div>
@@ -174,19 +179,21 @@ const Commodity = () => {
           </form>
         </section>
       </div>
-      <div>
-        <h2 className="all-provided-commodities">All provided commodities</h2>
-        <div className="commodities-list">
-          {commodityInfo.suggestedCommoditiesModel.commoditiesList.map((commodity) => (
-            <CommodityCard
-              commodity={commodity}
-              handleIncrement={handleIncrement}
-              handleDecrement={handleDecrement}
-              getQuantity={getQuantity}
-            />
-          ))}
+      {isLoggedIn &&
+        <div>
+          <h2 className="all-provided-commodities">All provided commodities</h2>
+          <div className="commodities-list">
+            {commodityInfo.suggestedCommoditiesModel.commoditiesList.map((commodity) => (
+              <CommodityCard
+                commodity={commodity}
+                handleIncrement={handleIncrement}
+                handleDecrement={handleDecrement}
+                getQuantity={getQuantity}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      }
     </>
   );
 };
