@@ -33,19 +33,19 @@ const Comment = (commentInfo) => {
     return(<></>);
   return (
     <>
-      <div class="comment">
-            <div class="comment-header">
-              <p class="message"> {commentInfo.commentInfo.text}</p>
-              <span class="date">{commentInfo.commentInfo.date}</span>
-              <span class="username">{commentInfo.commentInfo.username}</span>
-              <div class="helpful">
-                <span class="helpful-label">Is this comment helpful?</span>
+      <div className="comment">
+            <div className="comment-header">
+              <p className="message"> {commentInfo.commentInfo.text}</p>
+              <span className="date">{commentInfo.commentInfo.date}</span>
+              <span className="username">{commentInfo.commentInfo.username}</span>
+              <div className="helpful">
+                <span className="helpful-label">Is this comment helpful?</span>
                 <span>{commentInfo.commentInfo.like}</span>
-                <button class="like" onClick={handleLikeSubmit}>
+                <button className="like" onClick={handleLikeSubmit}>
                   <img src={like} alt="Like" />
                 </button>
                 <span>{commentInfo.commentInfo.dislike}</span>
-                <button class="dislike" onClick={handleDisikeSubmit}>
+                <button className="dislike" onClick={handleDisikeSubmit}>
                   <img src={dislike} alt="Dislike" />
                 </button>
               </div>
