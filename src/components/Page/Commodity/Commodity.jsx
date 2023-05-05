@@ -86,7 +86,6 @@ const Commodity = () => {
   };
   const handleRateCommodity = () => {
     handleRateCommoditySubmit();
-    setActiveFetch(true);
   }
 
   if (activeFetch === true)

@@ -7,6 +7,28 @@ import "./Commodity.css";
 
 const Comment = (commentInfo) => {
   console.log(commentInfo);
+  const handleLikeSubmit = (event) => {handleVoteCommentSubmit(event, 1);};
+  const handleDisikeSubmit = (event) => {handleVoteCommentSubmit(event, -1);};
+  async function handleVoteCommentSubmit(event, vote) {
+    event.preventDefault();
+    const response = await fetch(
+      `http://127.0.0.1:8080/voteComment/${commentInfo.commentInfo.id}?comment_id=${vote}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        method: "POST",
+        mode: "cors",
+        redirect: "follow",
+      }
+    );
+    if (response.ok) {
+      console.log("Vote comment succussfuly");
+    } else {
+      console.log("Vote comment unsuccussfuly!");
+    }
+  }
   if (commentInfo.commentInfo === undefined)
     return(<></>);
   return (
@@ -19,11 +41,11 @@ const Comment = (commentInfo) => {
               <div class="helpful">
                 <span class="helpful-label">Is this comment helpful?</span>
                 <span>{commentInfo.commentInfo.like}</span>
-                <button class="like">
+                <button class="like" onClick={handleLikeSubmit}>
                   <img src={like} alt="Like" />
                 </button>
                 <span>{commentInfo.commentInfo.dislike}</span>
-                <button class="dislike">
+                <button class="dislike" onClick={handleDisikeSubmit}>
                   <img src={dislike} alt="Dislike" />
                 </button>
               </div>
