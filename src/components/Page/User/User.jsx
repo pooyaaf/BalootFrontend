@@ -13,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./User.css";
 import CartModal from "./CardModal/CartModal";
+import CartCommodity from "./CartCommodity";
 import AmountModal from "./CardModal/AmountModal";
 import { useNavigate } from "react-router-dom";
 
@@ -56,6 +57,21 @@ const User = () => {
   };
   const handleNotConfirmationClose = () => {
     setShowConfirmationModal(false);
+  };
+  const [quantities, setQuantities] = useState({});
+
+  const handleIncrement = (id) => {
+    setQuantities({ ...quantities, [id]: (quantities[id] || 0) + 1 });
+  };
+
+  const handleDecrement = (id) => {
+    if (quantities[id] > 0) {
+      setQuantities({ ...quantities, [id]: quantities[id] - 1 });
+    }
+  };
+
+  const getQuantity = (id) => {
+    return quantities[id] || 0;
   };
 
   const navigate = useNavigate(); // add this
@@ -214,6 +230,14 @@ const User = () => {
                     </td>
                   </tr>
                 )}
+                {buyList.buyList.map((commodity) => (
+                  <CartCommodity
+                    commodity={commodity}
+                    handleIncrement={handleIncrement}
+                    handleDecrement={handleDecrement}
+                    getQuantity={getQuantity}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
