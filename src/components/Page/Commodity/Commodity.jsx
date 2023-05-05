@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Common/style.css";
 import "./Commodity.css";
 import GetCommodity from "./GetCommodity";
+import CommodityCard from "../../Common/CommodityCard";
 import { Link, useParams } from "react-router-dom";
 
 
@@ -14,10 +15,24 @@ const Commodity = () => {
   const { id } = useParams();
   const [commodityInfo, setCommodity] = useState({});
   const [activeFetch, setActiveFetch] = useState(true);
+  const [quantities, setQuantities] = useState({});
+
   const updateCommodity = (getCommodityInfo) => {
     setCommodity(getCommodityInfo);
     setActiveFetch(false);
   };
+  const handleIncrement = (id) => {
+    setQuantities({ ...quantities, [id]: (quantities[id] || 0) + 1 });
+  };
+  const handleDecrement = (id) => {
+    if (quantities[id] > 0) {
+      setQuantities({ ...quantities, [id]: quantities[id] - 1 });
+    }
+  };
+  const getQuantity = (id) => {
+    return quantities[id] || 0;
+  };
+
   if (activeFetch === true)
     GetCommodity(id).then((getCommodityInfo) => {updateCommodity(getCommodityInfo)});
   if (commodityInfo.commodityShortModel === undefined)
@@ -159,6 +174,19 @@ const Commodity = () => {
             </button>
           </form>
         </section>
+      </div>
+      <div>
+        <h2 className="all-provided-commodities">All provided commodities</h2>
+        <div className="commodities-list">
+          {commodityInfo.suggestedCommoditiesModel.commoditiesList.map((commodity) => (
+            <CommodityCard
+              commodity={commodity}
+              handleIncrement={handleIncrement}
+              handleDecrement={handleDecrement}
+              getQuantity={getQuantity}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
