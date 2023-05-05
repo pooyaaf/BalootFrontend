@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import product from "../../../assets/img/commodity.png";
 import productmamaspagetti from "../../../assets/img/momsSp.png";
@@ -23,6 +23,7 @@ const User = () => {
   const [quantity, setQuantity] = useState(1);
   //amount
   const [currentAmount, setCurrentAmount] = useState(10000000);
+  const [buyList, setBuyList] = useState({});
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [enteredAmount, setEnteredAmount] = useState("");
   const handleConfirmationShow = () => setShowConfirmationModal(true);
@@ -43,6 +44,32 @@ const User = () => {
     navigate("/login"); // use `navigate` to go to the login page
   };
 
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8080/buyList`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      method: "GET",
+      mode: "cors",
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("BuyList fetch succussfuly");
+        } else {
+          console.log("BuyList fetch unsuccussfuly!");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setBuyList(data);
+        setCurrentAmount(data.userModel.credit);
+      });
+  }, []);
+
+  if (buyList.userModel === undefined)
+    return (<></>);
+
   return (
     <main>
       <div className="user-box">
@@ -50,24 +77,24 @@ const User = () => {
           <div className="user-meta">
             <p>
               <img src={usericon} alt="User" className="User" />
-              <span className="user-box-info"> Marshal</span>
+              <span className="user-box-info"> {buyList.userModel.username}</span>
             </p>
             <p>
               {" "}
               <img src={mailicon} alt="Mail" className="Mail" />
-              <span className="user-box-info"> example@gmail.com</span>
+              <span className="user-box-info"> {buyList.userModel.email}</span>
             </p>
             <p>
               {" "}
               <img src={calendericon} alt="Calender" className="Calender" />
-              <span className="user-box-info"> 1972/10/17</span>
+              <span className="user-box-info"> {buyList.userModel.birthDate}</span>
             </p>
             <p>
               {" "}
               <img src={locationicon} alt="Location" className="Location" />
               <span className="user-box-info">
                 {" "}
-                20785 Schultes Avenue, Warren, MI 48091
+                {buyList.userModel.address}
               </span>
             </p>
             <p>
