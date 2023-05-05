@@ -4,6 +4,8 @@ import "./HeaderLoggedIn.css";
 import { Link } from "react-router-dom";
 
 const HeaderLoggedIn = () => {
+  const username = localStorage.getItem("username");
+
   return (
     <header class="header">
       <div class="header__logo__logged">
@@ -15,7 +17,7 @@ const HeaderLoggedIn = () => {
         </Link>
       </div>
       <div class="user-info">
-        <p class="username">Username</p>
+        <p class="username">{username}</p>
         <p class="card-info">
           <button>Cart 0</button>
         </p>

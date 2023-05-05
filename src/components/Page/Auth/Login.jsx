@@ -5,6 +5,7 @@ import "../../Common/style.css";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
@@ -17,6 +18,13 @@ const Login = () => {
   function handlePasswordChange(event) {
     setPassword(event.target.value);
   }
+
+  function handleLoginSuccess(username) {
+    localStorage.setItem("loggedIn", true);
+    localStorage.setItem("username", username);
+    navigate("/");
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     const response = await fetch(
@@ -30,19 +38,14 @@ const Login = () => {
         mode: "cors",
         redirect: "follow",
       }
-    ).then((response) => {
-      if (response.ok) {
-        alert("Login Successful!");
-        localStorage.setItem("username", username);
-        // localstorage.getItem(username) // to get username login or not
-        navigate("/");
-      } else {
-        alert("Wrong username or password!");
-        navigate("/login");
-      }
-      return response.json();
-    });
-    console.log("A name was submitted: " + response.body);
+    );
+    if (response.ok) {
+      alert("Login Successful!");
+      handleLoginSuccess(username);
+    } else {
+      alert("Wrong username or password!");
+      navigate("/login");
+    }
   }
 
   return (
@@ -59,7 +62,7 @@ const Login = () => {
             <div className="card-body">
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label for="username">Username:</label>
+                  <label htmlFor="username">Username:</label>
                   <input
                     type="text"
                     className="form-control"
@@ -71,7 +74,7 @@ const Login = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label for="password">Password:</label>
+                  <label htmlFor="password">Password:</label>
                   <input
                     type="password"
                     className="form-control"
