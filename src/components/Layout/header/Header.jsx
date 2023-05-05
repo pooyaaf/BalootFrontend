@@ -3,8 +3,12 @@ import logo from "../../../assets/img/logo.svg";
 import magnifier from "../../../assets/img/search.svg";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import "./LoggedOnHeader/HeaderLoggedIn.css";
 
 function Header() {
+  const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  const username = localStorage.getItem("username");
+
   return (
     <header className="header">
       <div className="header__logo">
@@ -31,20 +35,34 @@ function Header() {
           <img src={magnifier} alt="magnifier" />
         </div>
       </div>
+      <>
+        {" "}
+        {isLoggedIn ? (
+          <div class="user-info">
+            <p class="username">{username}</p>
+            <p class="card-info">
+              <button>Cart 0</button>
+            </p>
+          </div>
+        ) : (
+          <div className="d-flex align-items-center">
+            <Link to="/login">
+              <button
+                type="button"
+                className="btn  login-section btn-primary mr-3"
+              >
+                Login
+              </button>
+            </Link>
 
-      <div className="d-flex align-items-center">
-        <Link to="/login">
-          <button type="button" className="btn  login-section btn-primary mr-3">
-            Login
-          </button>
-        </Link>
-
-        <Link to="/register">
-          <button type="button" className="btn  login-section btn-primary">
-            Register
-          </button>
-        </Link>
-      </div>
+            <Link to="/register">
+              <button type="button" className="btn  login-section btn-primary">
+                Register
+              </button>
+            </Link>
+          </div>
+        )}
+      </>
     </header>
   );
 }
