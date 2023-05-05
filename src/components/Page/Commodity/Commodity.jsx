@@ -1,6 +1,5 @@
 import React, { useState, setState } from "react";
 import star from "../../../assets/img/star.svg";
-import product from "../../../assets/img/commodity.png";
 import dislike from "../../../assets/img/dislike.png";
 import like from "../../../assets/img/like.png";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -42,7 +41,7 @@ const Commodity = () => {
     <>
       <div className="product-box">
         <div className="product-image">
-          <img src={product} alt="Product Image" />
+          <img src={commodityInfo.commodityShortModel.commodityModel.image} alt="Product Image" />
         </div>
         <div className="product-details">
           <div className="product-title">
