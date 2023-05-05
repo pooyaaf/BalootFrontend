@@ -14,6 +14,7 @@ import "../../Common/style.css";
 import "./User.css";
 import CartModal from "./CardModal/CartModal";
 import AmountModal from "./CardModal/AmountModal";
+import { useNavigate } from "react-router-dom";
 
 const User = () => {
   const [show, setShow] = useState(false);
@@ -32,6 +33,14 @@ const User = () => {
   };
   const handleNotConfirmationClose = () => {
     setShowConfirmationModal(false);
+  };
+
+  const navigate = useNavigate(); // add this
+
+  const handleLogoutSuccess = () => {
+    localStorage.setItem("loggedIn", false);
+    localStorage.setItem("username", "#Username");
+    navigate("/login"); // use `navigate` to go to the login page
   };
 
   return (
@@ -62,14 +71,16 @@ const User = () => {
               </span>
             </p>
             <p>
-              <Button variant="primary ">logout</Button>
+              <Button variant="primary" onClick={handleLogoutSuccess}>
+                logout
+              </Button>
             </p>
           </div>
         </div>
         <div className="credit">
           <form action="" method="post">
             <div className="form-group">
-              <label for="currentAmount">${currentAmount}</label>
+              <label htmlFor="currentAmount">${currentAmount}</label>
             </div>
             <div className="form-group">
               <input
