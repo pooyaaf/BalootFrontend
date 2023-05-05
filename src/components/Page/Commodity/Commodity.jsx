@@ -49,7 +49,7 @@ const Commodity = () => {
       console.log("Post comment unsuccussfuly!");
     }
   }
-  async function handleRateCommoditySubmit(event) {
+  async function handleRateCommoditySubmit() {
     const response = await fetch(
       `http://127.0.0.1:8080/rateCommodity/${id}?comment_id=${rating}`,
       {
@@ -84,9 +84,8 @@ const Commodity = () => {
   const getQuantity = (id) => {
     return quantities[id] || 0;
   };
-  const handleRateCommodity = (event) => {
-    setRating(event.target.value)
-    handleRateCommoditySubmit(event);
+  const handleRateCommodity = () => {
+    handleRateCommoditySubmit();
     setActiveFetch(true);
   }
 
@@ -133,49 +132,49 @@ const Commodity = () => {
             <div className="star-rating-wrapper">
               <div className="star-rating">
                 {/* The "for" attribute should match the "id" attribute of the input */}
-                <input type="radio" name="star-rating" value="10" id="star-10" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="10" id="star-10" onClick={() => setRating(10)} />
                 <label htmlFor="star-10">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" value="9" id="star-9" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="9" id="star-9" onClick={() => setRating(9)} />
                 <label htmlFor="star-9">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" value="8" id="star-8" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="8" id="star-8" onClick={() => setRating(8)} />
                 <label htmlFor="star-8">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" value="7" id="star-7" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="7" id="star-7" onClick={() => setRating(7)} />
                 <label htmlFor="star-7">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" value="6" id="star-6" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="6" id="star-6" onClick={() => setRating(6)} />
                 <label htmlFor="star-6">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" value="5" id="star-5" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="5" id="star-5" onClick={() => setRating(5)} />
                 <label htmlFor="star-5">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" value="4" id="star-4" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="4" id="star-4" onClick={() => setRating(4)} />
                 <label htmlFor="star-4">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" value="3" id="star-3" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="3" id="star-3" onClick={() => setRating(3)} />
                 <label htmlFor="star-3">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" value="2" id="star-2" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="2" id="star-2" onClick={() => setRating(2)} />
                 <label htmlFor="star-2">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" value="1" id="star-1" onClick={handleRateCommodity} />
+                <input type="radio" name="star-rating" value="1" id="star-1" onClick={() => setRating(1)} />
                 <label htmlFor="star-1">
                   <img src={star} />
                 </label>
               </div>
             </div>
-            <button className="submit-rating">Submit</button>
+            <button className="submit-rating" onClick={handleRateCommodity}>Submit</button>
           </div>
         </div>
       </div>
