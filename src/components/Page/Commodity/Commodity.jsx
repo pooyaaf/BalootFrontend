@@ -15,6 +15,7 @@ const Commodity = () => {
   const { id } = useParams();
   const isLoggedIn = localStorage.getItem("loggedIn") === "true";
   const [ratingNumber, setRatingNumber] = useState(0);
+  const [rating, setRating] = useState(0);
   const [commodityInfo, setCommodity] = useState({});
   const [activeFetch, setActiveFetch] = useState(true);
   const [quantities, setQuantities] = useState({});
@@ -48,6 +49,26 @@ const Commodity = () => {
       console.log("Post comment unsuccussfuly!");
     }
   }
+  async function handleRateCommoditySubmit(event) {
+    const response = await fetch(
+      `http://127.0.0.1:8080/rateCommodity/${id}?comment_id=${rating}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        method: "POST",
+        mode: "cors",
+        redirect: "follow",
+      }
+    );
+    if (response.ok) {
+      console.log("Rate commodity succussfuly");
+      setActiveFetch(true);
+    } else {
+      console.log("Rate commodity unsuccussfuly!");
+    }
+  }
   const updateCommodity = (getCommodityInfo) => {
     setCommodity(getCommodityInfo);
     setActiveFetch(false);
@@ -63,6 +84,11 @@ const Commodity = () => {
   const getQuantity = (id) => {
     return quantities[id] || 0;
   };
+  const handleRateCommodity = (event) => {
+    setRating(event.target.value)
+    handleRateCommoditySubmit(event);
+    setActiveFetch(true);
+  }
 
   if (activeFetch === true)
     GetCommodity(id).then((getCommodityInfo) => {updateCommodity(getCommodityInfo)});
@@ -107,43 +133,43 @@ const Commodity = () => {
             <div className="star-rating-wrapper">
               <div className="star-rating">
                 {/* The "for" attribute should match the "id" attribute of the input */}
-                <input type="radio" name="star-rating" id="star-10" />
+                <input type="radio" name="star-rating" value="10" id="star-10" onClick={handleRateCommodity} />
                 <label htmlFor="star-10">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" id="star-9" />
+                <input type="radio" name="star-rating" value="9" id="star-9" onClick={handleRateCommodity} />
                 <label htmlFor="star-9">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" id="star-8" />
+                <input type="radio" name="star-rating" value="8" id="star-8" onClick={handleRateCommodity} />
                 <label htmlFor="star-8">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" id="star-7" />
+                <input type="radio" name="star-rating" value="7" id="star-7" onClick={handleRateCommodity} />
                 <label htmlFor="star-7">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" id="star-6" />
+                <input type="radio" name="star-rating" value="6" id="star-6" onClick={handleRateCommodity} />
                 <label htmlFor="star-6">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" id="star-5" />
+                <input type="radio" name="star-rating" value="5" id="star-5" onClick={handleRateCommodity} />
                 <label htmlFor="star-5">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" id="star-4" />
+                <input type="radio" name="star-rating" value="4" id="star-4" onClick={handleRateCommodity} />
                 <label htmlFor="star-4">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" id="star-3" />
+                <input type="radio" name="star-rating" value="3" id="star-3" onClick={handleRateCommodity} />
                 <label htmlFor="star-3">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" id="star-2" />
+                <input type="radio" name="star-rating" value="2" id="star-2" onClick={handleRateCommodity} />
                 <label htmlFor="star-2">
                   <img src={star} />
                 </label>
-                <input type="radio" name="star-rating" id="star-1" />
+                <input type="radio" name="star-rating" value="1" id="star-1" onClick={handleRateCommodity} />
                 <label htmlFor="star-1">
                   <img src={star} />
                 </label>
