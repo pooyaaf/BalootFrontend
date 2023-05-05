@@ -18,9 +18,35 @@ const Commodity = () => {
   const [commodityInfo, setCommodity] = useState({});
   const [activeFetch, setActiveFetch] = useState(true);
   const [quantities, setQuantities] = useState({});
+  const [commentText, setCommentText] = useState("");
+
+  function handleCommentTextChange(event) {
+    setCommentText(event.target.value);
+  }
 
   const increamentRatingNumber = () => {
     setRatingNumber(ratingNumber + 1);
+  }
+  async function handlePostCommentSubmit(event) {
+    event.preventDefault();
+    const response = await fetch(
+      `http://127.0.0.1:8080/addComment/${id}?comment=${commentText}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        method: "POST",
+        mode: "cors",
+        redirect: "follow",
+      }
+    );
+    if (response.ok) {
+      console.log("Post comment succussfuly");
+      setActiveFetch(true);
+    } else {
+      console.log("Post comment unsuccussfuly!");
+    }
   }
   const updateCommodity = (getCommodityInfo) => {
     setCommodity(getCommodityInfo);
@@ -128,7 +154,7 @@ const Commodity = () => {
         </div>
       </div>
       <div>
-        <section class="comments">
+        <section className="comments">
           <h2>
             Comments <p> ({commodityInfo.commodityShortModel.commentsList.length}) </p>
           </h2>
@@ -137,10 +163,10 @@ const Commodity = () => {
                 commentInfo={comment}
               />
             ))}
-          <form class="submit-opinion">
+          <form className="submit-opinion" onSubmit={handlePostCommentSubmit}>
             <h3>Submit your opinion</h3>
-            <input type="text" id="message" name="message" />
-            <button type="submit" class="btn btn-primary">
+            <input type="text" id="message" name="message" value={commentText} onChange={handleCommentTextChange}/>
+            <button type="submit" className="btn btn-primary">
               Post
             </button>
           </form>
