@@ -210,7 +210,7 @@ const User = () => {
           </button>
         </div>
 
-        <CartModal show={show} handleClose={handleClose} />
+        <CartModal show={show} handleClose={handleClose} buyList={buyList.buyList} />
 
         <div className="history">
           <p className="section-title">

@@ -5,7 +5,37 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../Common/style.css";
 import "../User.css";
 
-const CartModal = ({ show, handleClose }) => {
+const CartModal = ({ show, handleClose, buyList }) => {
+  const handleBuySubmit = () => {
+    paymentHandler();
+    handleClose();
+  }
+  async function paymentHandler() {
+    const response = await fetch(
+      `http://localhost:8080/payment`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        method: "POST",
+        mode: "cors",
+      }
+    );
+    if (response.ok) {
+      console.log("Payment succussfuly");
+    } else {
+      console.log("Payment unsuccussfuly!");
+    }
+  }
+  const calculatePrice = (buyList) => {
+    let price = 0;
+    buyList.forEach(commodity => {
+      price += commodity.inCart * commodity.price;
+    });
+    return price;
+  }
+  const totalPrice = calculatePrice(buyList);
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -14,28 +44,11 @@ const CartModal = ({ show, handleClose }) => {
       <Modal.Body>
         {
           /* Items List */
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <img
-                    src={product}
-                    alt="Product Image"
-                    className="table-image"
-                  />
-                </td>
-                <td>Galaxy S21</td>
-                <td>$21000000</td>
-              </tr>
-            </tbody>
-          </table>
+          <ul>
+            {buyList.map((commodity) => (
+              <li className="buyListItem">{commodity.name} &#10005; {commodity.inCart} ${commodity.price}</li>
+            ))}
+          </ul>
         }
         {
           /* Discount Code Input */
@@ -52,7 +65,7 @@ const CartModal = ({ show, handleClose }) => {
         {
           /* Total Price */
           <div className="total-price">
-            <h5>Total Price: $21000000</h5>
+            <h5>Total Price: ${totalPrice}</h5>
           </div>
         }
       </Modal.Body>
@@ -60,7 +73,7 @@ const CartModal = ({ show, handleClose }) => {
         <Button variant="btn-link  modalclose" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary " onClick={handleClose}>
+        <Button variant="primary " onClick={handleBuySubmit}>
           Buy
         </Button>
       </Modal.Footer>
