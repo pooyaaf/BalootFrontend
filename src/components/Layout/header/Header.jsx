@@ -20,6 +20,7 @@ function Header() {
         <select className="header__search__options">
           <option value="name">name</option>
           <option value="price">price</option>
+          <option value="price">provider</option>
         </select>
         <input
           type="text"
