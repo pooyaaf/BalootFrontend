@@ -5,7 +5,7 @@ import "./Home.css";
 import CommodityCard from "../../Common/CommodityCard";
 import { Pagination } from "react-bootstrap";
 import AllCommodities from "./AllCommodities";
-
+import CustomPagination from "./Pagination/CustomPagination";
 const Home = () => {
   const [showAvailableCommodities, setShowAvailableCommodities] =
     useState(false);
@@ -30,8 +30,9 @@ const Home = () => {
   };
 
   if (activeFetch === true)
-    AllCommodities().then((allCommodity) => {updateCommodities(allCommodity)});
-
+    AllCommodities().then((allCommodity) => {
+      updateCommodities(allCommodity);
+    });
 
   const sortedCommodities = () => {
     let sorted = commodities;
@@ -112,22 +113,11 @@ const Home = () => {
             ))}
           </div>
           <div>
-            <Pagination>
-              {[...Array(totalPages)].map((_, index) => (
-                <Pagination.Item
-                  key={index}
-                  className={
-                    index + 1 === currentPage
-                      ? "activeBtn pagination-item"
-                      : "normalBtn pagination-item"
-                  }
-                  active={index + 1 === currentPage}
-                  onClick={() => handlePageChange(index + 1)}
-                >
-                  {index + 1}
-                </Pagination.Item>
-              ))}
-            </Pagination>
+            <CustomPagination
+              totalPages={totalPages}
+              currentPage={currentPage}
+              handlePageChange={handlePageChange}
+            />
           </div>
         </section>
       </main>

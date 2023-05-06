@@ -1,17 +1,14 @@
 import React from "react";
 
 async function AllCommodities() {
-  const response = await fetch(
-    `http://127.0.0.1:8080/commodities`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      method: "GET",
-      mode: "cors",
-    }
-  ).then((response) => {
+  const response = await fetch(`http://127.0.0.1:8080/commodities`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    method: "GET",
+    mode: "cors",
+  }).then((response) => {
     if (response.ok) {
       console.log("Commodities fetch succussfuly");
     } else {
@@ -20,7 +17,7 @@ async function AllCommodities() {
     return response.json();
   });
   let commodities = [];
-  response.commoditiesList.forEach(item => {
+  response.commoditiesList.forEach((item) => {
     let commodity = {};
     commodity.id = item.id;
     commodity.name = item.name;
