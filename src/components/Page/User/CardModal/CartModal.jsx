@@ -1,27 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import product from "../../../../assets/img/commodity.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../Common/style.css";
 import "../User.css";
 
-const CartModal = ({ show, handleClose, buyList }) => {
+const CartModal = ({ show, handleClose, buyList, buyListPrice }) => {
+  const [discount, setDiscount] = useState("");
+  const [activeDiscount, setActiveDiscount] = useState(false);
+
   const handleBuySubmit = () => {
     paymentHandler();
     handleClose();
-  }
-  async function paymentHandler() {
+  };
+  const hadnleDiscount = async () => {
     const response = await fetch(
-      `http://localhost:8080/payment`,
+      `http://localhost:8080/addDiscount?discount=${discount}`,
       {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        method: "POST",
+        method: "GET",
         mode: "cors",
       }
     );
+    if (response.ok) {
+      console.log("Applied Discount!");
+      setActiveDiscount(true);
+    } else {
+      console.log("Discount unsuccussfuly!");
+    }
+  };
+
+  async function paymentHandler() {
+    const response = await fetch(`http://localhost:8080/payment`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      method: "POST",
+      mode: "cors",
+    });
     if (response.ok) {
       console.log("Payment succussfuly");
     } else {
@@ -30,12 +50,14 @@ const CartModal = ({ show, handleClose, buyList }) => {
   }
   const calculatePrice = (buyList) => {
     let price = 0;
-    buyList.forEach(commodity => {
+    buyList.forEach((commodity) => {
       price += commodity.inCart * commodity.price;
     });
+
     return price;
-  }
+  };
   const totalPrice = calculatePrice(buyList);
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -46,7 +68,9 @@ const CartModal = ({ show, handleClose, buyList }) => {
           /* Items List */
           <ul>
             {buyList.map((commodity) => (
-              <li className="buyListItem">{commodity.name} &#10005; {commodity.inCart} ${commodity.price}</li>
+              <li className="buyListItem">
+                {commodity.name} &#10005; {commodity.inCart} ${commodity.price}
+              </li>
             ))}
           </ul>
         }
@@ -56,16 +80,28 @@ const CartModal = ({ show, handleClose, buyList }) => {
             <label htmlFor="discountCode">Discount Code:</label>
             <input
               type="text"
-              className="form-control"
+              className="form-control col-10"
               id="discountCode"
               placeholder="Enter discount code"
+              value={discount}
+              onChange={(event) => {
+                setDiscount(event.target.value);
+              }}
             />
+            <Button
+              variant="primary"
+              classNAme="col-2"
+              onClick={hadnleDiscount}
+            >
+              Discount
+            </Button>
           </div>
         }
         {
           /* Total Price */
           <div className="total-price">
-            <h5>Total Price: ${totalPrice}</h5>
+            <h5> Total Price: {totalPrice}</h5>
+            {activeDiscount && <h5>with discount: {buyListPrice}</h5>}
           </div>
         }
       </Modal.Body>

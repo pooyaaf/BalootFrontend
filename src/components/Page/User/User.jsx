@@ -49,7 +49,7 @@ const User = () => {
   const handleConfirmationShow = (event) => {
     event.preventDefault();
     setShowConfirmationModal(true);
-  }
+  };
   const handleConfirmationClose = () => {
     const newAmount = parseFloat(enteredAmount);
     setCurrentAmount(currentAmount + newAmount);
@@ -106,8 +106,7 @@ const User = () => {
       });
   }, []);
 
-  if (buyList.userModel === undefined)
-    return (<></>);
+  if (buyList.userModel === undefined) return <></>;
 
   return (
     <main>
@@ -116,7 +115,10 @@ const User = () => {
           <div className="user-meta">
             <p>
               <img src={usericon} alt="User" className="User" />
-              <span className="user-box-info"> {buyList.userModel.username}</span>
+              <span className="user-box-info">
+                {" "}
+                {buyList.userModel.username}
+              </span>
             </p>
             <p>
               {" "}
@@ -126,7 +128,10 @@ const User = () => {
             <p>
               {" "}
               <img src={calendericon} alt="Calender" className="Calender" />
-              <span className="user-box-info"> {buyList.userModel.birthDate}</span>
+              <span className="user-box-info">
+                {" "}
+                {buyList.userModel.birthDate}
+              </span>
             </p>
             <p>
               {" "}
@@ -210,7 +215,12 @@ const User = () => {
           </button>
         </div>
 
-        <CartModal show={show} handleClose={handleClose} buyList={buyList.buyList} />
+        <CartModal
+          show={show}
+          handleClose={handleClose}
+          buyList={buyList.buyList}
+          buyListPrice={buyList.buyListPrice}
+        />
 
         <div className="history">
           <p className="section-title">
@@ -233,9 +243,7 @@ const User = () => {
               </thead>
               <tbody>
                 {buyList.purchasedList.map((commodity) => (
-                  <HistoryCommodity
-                    commodity={commodity}
-                  />
+                  <HistoryCommodity commodity={commodity} />
                 ))}
               </tbody>
             </table>
