@@ -1,0 +1,27 @@
+.pagination .page-link {
+    color: #555;
+    border: none;
+    background-color: transparent;
+  }
+  
+  .normalBtn {
+    color: black;
+    border: none;
+    background-color: transparent;
+  }
+  
+  .activeBtn {
+    background-color: rgba(206, 206, 206, 0.699);
+    box-shadow: 0 0 0 2px #ced4da;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex; 
+    align-items: center;
+     justify-content: center;
+  }
+  
+  .activeBtn:focus {
+    box-shadow: none;
+  }
+  

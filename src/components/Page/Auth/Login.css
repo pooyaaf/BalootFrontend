@@ -1,0 +1,121 @@
+.bg-dark {
+    background-color: #593C1C;
+    color: #a97b47;
+  }
+  
+  .card {
+    background-color: #F7F0E9;
+    border-color: #a97b47;
+    box-shadow: 0px 4px 4px rgba(208, 208, 208, 0.25);
+
+    margin: auto;
+  }
+  
+  .card-header {
+    background-color: #593C1C;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .card-header .logo-sign {
+    max-width: 120px;
+  }
+  
+  .form-group label {
+    color: #a97b47;
+  }
+  
+  .btn-primary {
+    margin-top: 10px;
+    background-color: #593C1C;
+    border-color: #a97b47;
+    animation-name: fadeInRight;
+    animation-duration: 1s;
+}
+
+.btn-primary:hover {
+    background-color: #a97b47;
+    border-color: #593C1C;
+    animation-name: pulse;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+  
+a {
+    color: #593C1C;
+    animation-name: fadeIn;
+    animation-duration: 1s;
+}
+
+a:hover {
+    color: #a97b47;
+    animation-name: pulse;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.bg-dark {
+    background-color: #F5F5F5;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
