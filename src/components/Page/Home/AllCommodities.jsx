@@ -1,10 +1,12 @@
 import React from "react";
 
 async function AllCommodities() {
+  console.log(localStorage.getItem("token"));
   const response = await fetch(`http://127.0.0.1:8080/commodities`, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
     },
     method: "GET",
     mode: "cors",

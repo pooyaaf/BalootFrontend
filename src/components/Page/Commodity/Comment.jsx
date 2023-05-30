@@ -17,6 +17,7 @@ const Comment = (commentInfo) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
         method: "POST",
         mode: "cors",

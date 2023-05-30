@@ -19,7 +19,10 @@ const Login = () => {
     setPassword(event.target.value);
   }
 
-  function handleLoginSuccess(username) {
+  function handleLoginSuccess(username, token) {
+    token.then(result => {
+      localStorage.setItem("token", result.login)}
+    );
     localStorage.setItem("loggedIn", true);
     localStorage.setItem("username", username);
     navigate("/");
@@ -38,14 +41,15 @@ const Login = () => {
         mode: "cors",
         redirect: "follow",
       }
-    );
-    if (response.ok) {
-      alert("Login Successful!");
-      handleLoginSuccess(username);
-    } else {
-      alert("Wrong username or password!");
-      navigate("/login");
-    }
+    ).then((response) => {
+      if (response.ok) {
+        alert("Login Successful!");
+        handleLoginSuccess(username, response.json());
+      } else {
+        alert("Wrong username or password!");
+        navigate("/login");
+      }
+    });
   }
 
   const clientId = "f3cc203f5df4b2e30d5c";
