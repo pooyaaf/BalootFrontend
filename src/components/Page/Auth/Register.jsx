@@ -47,6 +47,9 @@ const Register = () => {
       if (response.ok) {
         alert("Register Successful!");
         localStorage.setItem("username", username);
+        response.json().then(result => {
+          localStorage.setItem("token", result.login)}
+        );
         navigate("/");
       } else {
         alert("Wrong username or password!");

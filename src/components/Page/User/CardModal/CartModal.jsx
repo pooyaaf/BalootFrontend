@@ -20,6 +20,7 @@ const CartModal = ({ show, handleClose, buyList, buyListPrice }) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
         method: "GET",
         mode: "cors",
@@ -38,6 +39,7 @@ const CartModal = ({ show, handleClose, buyList, buyListPrice }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       method: "POST",
       mode: "cors",
